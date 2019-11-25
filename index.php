@@ -11,7 +11,10 @@
     <div class="container">
         <div class="childcontainer">
             <h2>Login</h2>
-            <form action="">
+            <form action="sessions">
+
+                <input type="hidden" name="sessionType" value="login">
+
                 <label for="uname"><b>Username</b></label>
                 <input type="text" placeholder="Enter Username" name="uname" required>
                 <label for="psw"><b>Password</b></label>
