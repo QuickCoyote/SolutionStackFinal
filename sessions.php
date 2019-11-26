@@ -39,8 +39,11 @@
                                         extract($row);
                                         if($uwuserName == $filteredUser && $password == $filteredPass)
                                         {
+                                            include "bluwubs.php";
                                             echo " Logging in";
                                             $_SESSION["uwuserID"] = $id;
+                                            $_SESSION["bluwub1"] = new Bluwub($bluwub1);
+
                                             header("Location: myBluwubs.php");
 
                                         }
