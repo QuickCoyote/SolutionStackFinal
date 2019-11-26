@@ -4,11 +4,12 @@
     $sessionType = filter_input(INPUT_GET, "sessionType",FILTER_SANITIZE_STRING);
     session_start();
 
-    echo $_SERVER['REQUEST_URI'];
-    if(isset($_SESSION['uwuserID']) && $_SERVER['REQUEST_URI'] != "index")
+    echo "<p>".$_SERVER['SCRIPT_NAME']."</p>";
+    if(!isset($_SESSION['uwuserID']) && 
+    !($_SERVER['SCRIPT_NAME'] == "/SolutionStackFinal/index.php" || $_SERVER['SCRIPT_NAME'] == "/SolutionStackFinal/sessions.php"))
     {
         echo "no sesh";
-        //header("Location: index.php");
+        header("Location: index.php");
     }
     
     //echo "Session Type: ".$sessionType;
@@ -57,6 +58,7 @@
                                         {
                                             // should never get here
                                             echo " Login Failed";
+                                            header("Location: index.php");
                                         }  
                                     }
                                 }
