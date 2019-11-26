@@ -5,6 +5,7 @@
         public $id, $owner, $maxHealth, $currentHealth, $healthUpdateTime, $blob, $part1, $part2;
 
         public function __construct($index) {
+            if(is_null($index)) return;
             $this->SetToID($index);
         }
 
