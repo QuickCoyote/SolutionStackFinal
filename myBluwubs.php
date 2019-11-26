@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <?php
+    include "bluwubs.php";
+    ?>
 </body>
 </html>

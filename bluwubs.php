@@ -1,5 +1,58 @@
 <?php 
 
+    class Bluwub
+    {
+        public $id, $name, $owner, $maxHealth, $currentHealth, $healthUpdateTime, $blob, $part1, $part2;
+
+        public function SetToID($index)
+        {
+            include "dbConfig.php";
+
+            $query = "SELECT * From `bluwubs` WHERE `id` = '".$index."'";
+            $sqlResult = $mysqli->query($query);
+            $num_results = $sqlResult->num_rows;
+            if($num_results > 0)
+            {
+                while($row = $sqlResult->fetch_assoc())
+                {
+                    extract($row);
+                    $this->id = $id;
+                    $this->name = $name;
+                    $this->owner = $ownerID;
+                    $this->maxHealth = $maxHealth;
+                    $this->currentHealth= $currentHealth;
+                    $this->healthUpdateTime = $healthUpdateTime;
+                    // make parts
+                    $this->blob = $blob;
+                    $this->part1 = $part1;
+                    $this->part2 = $part2;
+                }
+            }
+            
+            $timeDiffrence = $healthUpdateTime - time();
+            echo "Bluwubs line 33 Time Diffrence for regen = ".$timeDiffrence;
+
+            //do regen stuff
+        }
+
+        public function UpdateToDatabase()
+        {
+            include "dbConfig.php";
+            // update bluwubs
+        }
+    }
+
+    class Part
+    {
+        //add part data
+
+        function SetToID($index)
+        {
+            // set data
+        }
+    }
+    
+
     function SetOwner($bluwub, $owner)
     {
         include "dbConfig.php";
@@ -90,8 +143,6 @@
         }
         
     }
-
-    
 
     // would be fun to genrate random names
 
