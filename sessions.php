@@ -7,7 +7,8 @@
     echo $_SERVER['REQUEST_URI'];
     if(isset($_SESSION['uwuserID']) && $_SERVER['REQUEST_URI'] != "index")
     {
-        header("Location: index.php");
+        echo "no sesh";
+        //header("Location: index.php");
     }
     
     //echo "Session Type: ".$sessionType;
@@ -104,7 +105,8 @@
 
     function DestorySession()
     {
-        
+        session_unset();
+        session_destroy();
     }
 
 ?>
