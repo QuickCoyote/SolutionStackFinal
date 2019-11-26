@@ -4,6 +4,12 @@
     $sessionType = filter_input(INPUT_GET, "sessionType",FILTER_SANITIZE_STRING);
     session_start();
 
+    echo $_SERVER['REQUEST_URI'];
+    if(isset($_SESSION['uwuserID']) && $_SERVER['REQUEST_URI'] != "index")
+    {
+        header("Location: index.php");
+    }
+    
     //echo "Session Type: ".$sessionType;
 
     SetSession();
@@ -45,7 +51,6 @@
                                             $_SESSION["bluwubs"] = [new Bluwub($bluwub1), new Bluwub($bluwub2),new Bluwub($bluwub3)];
 
                                             header("Location: myBluwubs.php");
-
                                         }
                                         else
                                         {
@@ -54,7 +59,13 @@
                                         }  
                                     }
                                 }
-                            }    
+                            } 
+                            else
+                            {
+                                echo "Wrong password coward";
+                            //header("Location: index.php");
+                            }
+ 
                         }
                     }
                     else
@@ -86,10 +97,14 @@
                         SetSession();
                     }     
                 }              
-                
 
             break;
         }
+    }
+
+    function DestorySession()
+    {
+        
     }
 
 ?>

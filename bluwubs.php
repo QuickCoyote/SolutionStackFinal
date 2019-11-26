@@ -85,9 +85,9 @@
 
         public function GetDefense()
         {
-            $defence = $this->blob->defence;
-            $defence += $this->part1->defence;
-            $defence += $this->part2->defence;
+            $defence = $this->blob->defense;
+            $defence += $this->part1->defense;
+            $defence += $this->part2->defense;
             return $defence;
         }
 
@@ -211,7 +211,7 @@
 
     function CreateBluwub($bluwbs)
     {
-        $createBlobsWithBluwubs = false;
+        $createBlobsWithBluwubs = true;
         $minHealth = 200;
         $maxHealth = 500;
 
