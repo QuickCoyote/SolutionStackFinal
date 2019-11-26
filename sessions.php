@@ -4,7 +4,7 @@
     $sessionType = filter_input(INPUT_GET, "sessionType",FILTER_SANITIZE_STRING);
     session_start();
 
-    echo "Session Type: ".$sessionType;
+    //echo "Session Type: ".$sessionType;
 
     SetSession();
 
@@ -44,7 +44,7 @@
                                             $_SESSION["uwuserID"] = $id;
                                             $_SESSION["bluwubs"] = [new Bluwub($bluwub1), new Bluwub($bluwub2),new Bluwub($bluwub3)];
 
-                                            header("Location: myBluwubs.php");
+                                            header("Location: testFile.php");
 
                                         }
                                         else

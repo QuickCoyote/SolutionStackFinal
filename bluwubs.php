@@ -70,12 +70,43 @@
             $mysqli->query($query);
         }
 
+        public function GetHealthPercent()
+        {
+            return $this->currentHealth / $this->maxHealth;
+        }
+
+        public function GetDamage()
+        {
+            $damage = $this->blob->damage;
+            $damage += $this->part1->damage;
+            $damage += $this->part2->damage;
+            return $damage;
+        }
+
+        public function GetDefense()
+        {
+            $defence = $this->blob->defence;
+            $defence += $this->part1->defence;
+            $defence += $this->part2->defence;
+            return $defence;
+        }
+
         public function GetRegen()
         {
             $regen = $this->blob->regen;
             $regen += $this->part1->regen;
             $regen += $this->part2->regen;
             return $regen;
+        }
+
+        public function GetAtackSpeed()
+        {
+            $attackSpeed = $this->blob->attackSpeed / 10;
+            $attackSpeed += $this->part1->attackSpeed / 10;
+            $attackSpeed += $this->part2->attackSpeed / 10;
+            $attackSpeed = 5 - $attackSpeed;
+            if($attackSpeed < .5) { $attackSpeed = .5; }
+            return $attackSpeed;
         }
     }
 
