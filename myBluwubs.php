@@ -42,7 +42,7 @@
                             <canvas id="blubCanvas1" class= "blubSmallCanvas" width="200" height="200"></canvas>
                         </div>
                         <div class = "blubSmallStatsContainer">
-                            <strong>Health:</strong> '."".floor($blub->GetPercentHealth() * 100)."".'
+                            <strong>Health:</strong> '."".floor($blub->GetHealthPercent() * 100)."".'
                             </br>
                             <strong>Regen Speed (per second):</strong> '."".$blub->GetRegen()."".'
                             </br>

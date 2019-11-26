@@ -99,7 +99,7 @@
             return $regen;
         }
 
-        public function GetAtackSpeed()
+        public function GetAttackSpeed()
         {
             $attackSpeed = $this->blob->attackSpeed / 10;
             $attackSpeed += $this->part1->attackSpeed / 10;
