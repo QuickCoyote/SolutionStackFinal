@@ -42,7 +42,7 @@
                                             include "bluwubs.php";
                                             echo " Logging in";
                                             $_SESSION["uwuserID"] = $id;
-                                            $_SESSION["bluwubs"] = [new Bluwub($bluwub1), new Bluwub($bluwub2),new Bluwub($bluwub2)];
+                                            $_SESSION["bluwubs"] = [new Bluwub($bluwub1), new Bluwub($bluwub2),new Bluwub($bluwub3)];
 
                                             header("Location: myBluwubs.php");
 
