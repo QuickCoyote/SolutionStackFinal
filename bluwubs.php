@@ -107,7 +107,7 @@
             $attackSpeed += $this->part1->attackSpeed / 10;
             $attackSpeed += $this->part2->attackSpeed / 10;
             $attackSpeed = 5 - $attackSpeed;
-            if($attackSpeed < .5) { $attackSpeed = .5; }
+            if($attackSpeed < .5) { $attackSpeed = .01; }
             return $attackSpeed;
         }
     }
@@ -267,13 +267,13 @@
         include "dbConfig.php";
 
         $minBlobDamage = 10;
-        $maxBlobDamage = 100;
+        $maxBlobDamage = 110;
 
         $minBlobDefence = 1;
-        $maxBlobDefence = 100;
+        $maxBlobDefence = 110;
 
         // regen per second
-        $minBlobRegen = 0;
+        $minBlobRegen = 1;
         $maxBlobRegen = 10;
 
         $minBlobAttackSpeed = 5; // == .5 hits every .5 seconds
@@ -295,6 +295,115 @@
         }
     }
 
+    function CreateParts()
+    {
+        $partsToCreate = 5;
+        CreatePart($partsToCreate);
+    }
+
+    function CreatePart($parts)
+    {
+        include "dbConfig.php";
+
+        $minPartDamage = 10;
+        $maxPartDamage = 100;
+
+        $minPartDefence = 1;
+        $maxPartDefence = 100;
+
+        // regen per second
+        $minPartRegen = 0;
+        $maxPartRegen = 10;
+
+        $minPartAttackSpeed = 5; // == .5 hits every .5 seconds
+        $maxPartAttackSpeed = 20; // == 2 hits every 2 seconds
+
+        $damagebit = new PartType();
+        $damagebit->type = "damage";
+        $damagebit->bits = ["jaws", "claws"];
+
+        $defencebit = new PartType();
+        $defencebit->type = "defense";
+        $defencebit->bits = ["shield", "armor"];
+
+        $regenbit = new PartType();
+        $regenbit->type = "regen";
+        $regenbit->bits = ["amulet"];
+
+        $speedbit = new PartType();
+        $speedbit->type = "attackSpeed";
+        $speedbit->bits = ["cool boots"];
+
+        $theBitsTheBits = [$damagebit, $defencebit, $regenbit, $speedbit];
+
+
+        for($i = 0; $i < $parts; $i++)
+        {
+            $damage = rand($minPartDamage, $maxPartDamage);
+            $defense = rand($minPartDefence, $maxPartDefence);
+            $regen = rand($minPartRegen, $maxPartRegen);
+            $attackSpeed = rand($minPartAttackSpeed, $maxPartAttackSpeed);
+
+            $bit = $theBitsTheBits[rand(0,sizeof($theBitsTheBits)-1)];
+            $theBit = $bit->bits[rand(0,sizeof($bit->bits)-1)];
+            $image = $theBit.".png";
+
+            switch($bit->type)
+            {
+                case "damage":
+                    $damage = $damage * 2;
+                    $attackSpeed = $attackSpeed / 2;
+                break;
+                case "defense":
+                    $defense = $defense * 2;
+                    $regen = $regen / 2;
+                break;
+                case "regen":
+                    $regen = $regen * 2;
+                    $defense = $defense / 2;
+                break;
+                case "attackSpeed":
+                    $attackSpeed = $attackSpeed * 2;
+                    $damage = $damage / 2;
+                break;
+            }
+
+            $query = "INSERT INTO `parts`( `type`, `name`, `damage`, `defense`, `regen`,`attackSpeed`, `image`)
+            VALUES ('part', '".$theBit."', '".$damage."', '".$defense."', '".$regen."', '".$attackSpeed."', '".$image."')";
+            $mysqli->query($query);
+            
+        }
+    }
+
+    function GetRandomPart()
+    {
+        include "dbConfig.php";
+
+        $query = "SELECT * FROM parts where `type` = 'part' ORDER BY RAND() LIMIT 1";
+        $sqlResult = $mysqli->query($query);
+        $num_results = $sqlResult->num_rows;
+        if($num_results > 0)
+        {
+            while($row = $sqlResult->fetch_assoc())
+            {
+                extract($row);
+                return new Part($id); 
+            }
+        }
+        else
+        {
+            CreatePart();
+            return GetRandomPart();
+        }
+    }
+
+    function GiveUserPart($uwuserID, $partID)
+    {
+        $query = "INSERT INTO `uwuserparts`( `ownerId`, `partID`)
+            VALUES (".$usuwerID.", ".$partID.")";
+            $mysqli->query($query);
+    }
+
     function random_color_part() {
         return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
     }
@@ -302,6 +411,13 @@
     function random_color() {
         return random_color_part() . random_color_part() . random_color_part();
     }
+
+    class PartType
+    {
+        public $type, $bits;
+    }
+
+
 
 
 ?>
