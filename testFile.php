@@ -12,5 +12,6 @@
     include "sessions.php";
     echo $_SESSION["bluwubs"][0]->id;
     ?>
+    <a href="sessions?sessionType=logout">logout</a>
 </body>
 </html>

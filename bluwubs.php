@@ -218,7 +218,7 @@
         include "dbConfig.php";
         echo "bolbss: ".$bluwbs;
         // Create Blobs
-        //if($createBlobsWithBluwubs) CreateBlobs($bluwbs);
+        if($createBlobsWithBluwubs) { CreateBlob($bluwbs); }
 
         for($i = 0; $i < $bluwbs; $i++)
         {
@@ -226,8 +226,6 @@
             $time = date_create('now')->format('Y-m-d H:i:s');
             $blob = GetRandomBlob();
             // Create Bluwubs
-            echo "INSERT INTO `bluwubs`( `maxHealth`, `currentHealth`, `healthUpdateTime`, `blob`)
-            VALUES ('".$health."', '".$health."', '".$time."', '".$blob."')";
             $query = "INSERT INTO `bluwubs`( `maxHealth`, `currentHealth`, `healthUpdateTime`, `blob`)
                     VALUES ('".$health."', '".$health."', '".$time."', '".$blob."')";
             $mysqli->query($query);
@@ -267,12 +265,22 @@
             $defense = rand($minBlobDefence, $maxBlobDefence);
             $regen = rand($minBlobRegen, $maxBlobRegen);
             $attackSpeed = rand($minBlobAttackSpeed, $maxBlobAttackSpeed);
+            $color = random_color();
 
-            $query = "INSERT INTO `parts`( `type`, `name`, `damage`, `defense`, `regen`,`attackSpeed`)
-            VALUES ('blob', 'blob', '".$damage."', '".$defense."', '".$regen."', '".$attackSpeed."')";
+            $query = "INSERT INTO `parts`( `type`, `name`, `damage`, `defense`, `regen`,`attackSpeed`, `image`)
+            VALUES ('blob', 'blob', '".$damage."', '".$defense."', '".$regen."', '".$attackSpeed."', '".$color."')";
             $mysqli->query($query);
+            echo $query;
 
         }
+    }
+
+    function random_color_part() {
+        return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+    }
+    
+    function random_color() {
+        return random_color_part() . random_color_part() . random_color_part();
     }
 
 
