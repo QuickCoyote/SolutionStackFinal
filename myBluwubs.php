@@ -14,6 +14,7 @@
         include "sessions.php"
     ?>
     <a href="sessions?sessionType=logout">logout</a>
+    <a href="battle?sessionType=refreshSession">battle</a>
 
     <?php 
 
@@ -48,7 +49,7 @@
                                <canvas id="blubCanvas1" class= "blubSmallCanvas" width="200" height="200"></canvas>
                            </div>
                            <div class = "blubSmallStatsContainer">
-                               <strong>Health:</strong> '."".floor($blub->GetHealthPercent() * 100)."".'
+                               <strong>Health:</strong> '."".round($blub->GetHealthPercent() * 100)."".'
                                </br>
                                <strong>Regen Speed (per second):</strong> '."".$blub->GetRegen()."".'
                                </br>
