@@ -46,12 +46,12 @@
             $timeDiffrence =  $date2Timestamp -$date1Timestamp;
 
             $regen = $this->GetRegen();
-            $totalRegen = $regen * $timeDiffrence /100;
+            $totalRegen = $regen * $timeDiffrence ;
             //echo $totalRegen;
 
             $this->healthUpdateTime = $date2;
             //do regen stuff
-            $this->currentHealth += $totalRegen;
+            $this->currentHealth = $this->currentHealth + $totalRegen;
             if($this->currentHealth > $this->maxHealth)
             {
                 $this->currentHealth = $this->maxHealth;
@@ -98,7 +98,7 @@
             $regen = $this->blob->regen;
             $regen += $this->part1->regen;
             $regen += $this->part2->regen;
-            return $regen;
+            return $regen / 10;
         }
 
         public function GetAttackSpeed()
