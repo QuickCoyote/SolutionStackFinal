@@ -12,6 +12,7 @@
         header("Location: index.php");
     }
     
+    //echo $_SESSION['uwuserID'];
     //echo "Session Type: ".$sessionType;
 
     SetSession();
@@ -47,7 +48,7 @@
                                         extract($row);
                                         if($uwuserName == $filteredUser && $password == $filteredPass)
                                         {
-                                            include "bluwubs.php";
+                                            include_once "bluwubs.php";
                                             echo " Logging in";
                                             $_SESSION["uwuserID"] = $id;
                                             $_SESSION["bluwubs"] = [new Bluwub($bluwub1), new Bluwub($bluwub2),new Bluwub($bluwub3)];
@@ -66,7 +67,7 @@
                             else
                             {
                                 echo "Wrong password coward";
-                            //header("Location: index.php");
+                                header("Location: index.php");
                             }
  
                         }
@@ -102,12 +103,16 @@
                 }              
 
             break;
+            case "logout":
+                DestorySession();
+                header("Location: index.php");
+            break;
         }
     }
 
     function DestorySession()
     {
-        session_unset();
+        $_SESSION = array();
         session_destroy();
     }
 
