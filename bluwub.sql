@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 25, 2019 at 09:57 PM
+-- Generation Time: Dec 02, 2019 at 06:53 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -43,16 +43,19 @@ CREATE TABLE IF NOT EXISTS `bluwubs` (
   KEY `blob` (`blob`),
   KEY `part1` (`part1`),
   KEY `part2` (`part2`)
-) ENGINE=InnoDB AUTO_INCREMENT=779 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `bluwubs`
 --
 
 INSERT INTO `bluwubs` (`id`, `ownerId`, `maxHealth`, `currentHealth`, `healthUpdateTime`, `blob`, `part1`, `part2`) VALUES
-(1, NULL, 300, 300, '2019-11-25 11:00:00', 1, NULL, NULL),
-(2, NULL, 300, 300, '2019-11-25 11:00:00', 1, NULL, NULL),
-(3, 31, 300, 300, '2019-11-25 11:00:00', 1, NULL, NULL);
+(1, 1, 500, 500, '2019-12-02 18:24:08', 1, NULL, NULL),
+(29, NULL, 477, 477, '2019-12-02 17:08:20', 3, NULL, NULL),
+(30, 40, 434, 434, '2019-12-02 18:48:22', 6, NULL, NULL),
+(31, NULL, 327, 327, '2019-12-02 17:08:20', 1, NULL, NULL),
+(32, 40, 412, 412, '2019-12-02 18:48:22', 1, NULL, NULL),
+(33, NULL, 214, 214, '2019-12-02 17:08:20', 5, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -65,19 +68,25 @@ CREATE TABLE IF NOT EXISTS `parts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(32) NOT NULL,
   `name` varchar(32) NOT NULL,
+  `image` varchar(128) NOT NULL,
   `damage` int(11) NOT NULL,
   `defense` int(11) NOT NULL,
   `regen` int(11) NOT NULL,
   `attackSpeed` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `parts`
 --
 
-INSERT INTO `parts` (`id`, `type`, `name`, `damage`, `defense`, `regen`, `attackSpeed`) VALUES
-(1, 'blob', 'blob', 50, 50, 50, 50);
+INSERT INTO `parts` (`id`, `type`, `name`, `image`, `damage`, `defense`, `regen`, `attackSpeed`) VALUES
+(1, 'blob', 'blob', 'ff0000', 50, 50, 50, 20),
+(2, 'blob', 'blob', '29b417', 98, 22, 1, 17),
+(3, 'blob', 'blob', '81e3a4', 19, 20, 2, 12),
+(4, 'blob', 'blob', '7ed170', 98, 4, 4, 18),
+(5, 'blob', 'blob', '748e67', 16, 77, 4, 14),
+(6, 'blob', 'blob', '104465', 28, 45, 8, 8);
 
 -- --------------------------------------------------------
 
@@ -114,14 +123,15 @@ CREATE TABLE IF NOT EXISTS `uwusers` (
   UNIQUE KEY `bluwub1` (`bluwub1`),
   UNIQUE KEY `bluwub2` (`bluwub2`),
   UNIQUE KEY `bluwub3` (`bluwub3`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `uwusers`
 --
 
 INSERT INTO `uwusers` (`id`, `uwuserName`, `password`, `bluwub1`, `bluwub2`, `bluwub3`) VALUES
-(31, 'Kali', 'Linux', 3, NULL, NULL);
+(1, 'Kali', 'Linux', 1, NULL, NULL),
+(40, 'Dev', 'Testing', 32, 30, NULL);
 
 --
 -- Constraints for dumped tables

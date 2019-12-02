@@ -11,11 +11,14 @@
 
         public function SetToID($index)
         {
+            if(is_null($index)) return;
+
             include "dbConfig.php";
 
             $query = "SELECT * From `bluwubs` WHERE `id` = '".$index."'";
             $sqlResult = $mysqli->query($query);
             $num_results = $sqlResult->num_rows;
+            //echo $query;
             if($num_results > 0)
             {
                 while($row = $sqlResult->fetch_assoc())
@@ -33,7 +36,7 @@
 
                 }
             }
-            echo "<p>".$healthUpdateTime." : ".date_create('now')->format('Y-m-d H:i:s')."</p>";
+            //echo "<p>".$healthUpdateTime." : ".date_create('now')->format('Y-m-d H:i:s')."</p>";
             $date1 = $healthUpdateTime;
             $date2 = date_create('now')->format('Y-m-d H:i:s');
             
@@ -43,8 +46,8 @@
             $timeDiffrence =  $date2Timestamp -$date1Timestamp;
 
             $regen = $this->GetRegen();
-            $totalRegen = $regen * $timeDiffrence;
-            echo $totalRegen;
+            $totalRegen = $regen * $timeDiffrence /100;
+            //echo $totalRegen;
 
             $this->healthUpdateTime = $date2;
             //do regen stuff
@@ -63,10 +66,9 @@
             $query = "Update bluwubs SET";
             if(!is_null($this->owner)) {} else{$query .= "`ownerId`= ".$this->owner.",";}
             $query .= "`currentHealth`=".$this->currentHealth.",`healthUpdateTime`='".$this->healthUpdateTime."',`blob`=".$this->blob->id;
-            if(!is_null($this->part1)) {echo "sliipper";} else{$query .= ",`part1`=".$this->part1->id;}
+            if(!is_null($this->part1)) {} else{$query .= ",`part1`=".$this->part1->id;}
             if(!is_null($this->part2)) {} else {$query .= ",`part2`=".$this->part2->id;}
             $query .= " WHERE `id` = $this->id";
-            echo $query;
             $mysqli->query($query);
         }
 
@@ -151,7 +153,7 @@
         include "dbConfig.php";
 
         $query = "Update bluwubs SET `ownerId` = $owner Where `id` = $bluwub";
-        echo $query;
+        //echo $query;
         $mysqli->query($query);
     }
 
@@ -160,7 +162,7 @@
         include "dbConfig.php";
 
         $query = "SELECT * FROM bluwubs where `ownerID` IS NULL ORDER BY RAND() LIMIT 1";
-        echo $query;
+        //echo $query;
         $sqlResult = $mysqli->query($query);
         $num_results = $sqlResult->num_rows;
         if($num_results > 0)
@@ -175,6 +177,23 @@
         {
             CreateBluwubs();
             return GetRandomBluwub();
+        }
+    }
+
+    function GetOtherBluwub($myID)
+    {
+        include "dbConfig.php";
+
+        $query = "SELECT * FROM bluwubs where `ownerID` != $myID ORDER BY RAND() LIMIT 1";
+        $sqlResult = $mysqli->query($query);
+        $num_results = $sqlResult->num_rows;
+        if($num_results > 0)
+        {
+            while($row = $sqlResult->fetch_assoc())
+            {
+                extract($row);
+                return new Bluwub($id);
+            }
         }
     }
 
@@ -206,7 +225,7 @@
     function CreateBluwubs()
     {
         $bluwubsToCreate = 5;
-        echo "blobss: ".$bluwubsToCreate;
+        //echo "blobss: ".$bluwubsToCreate;
         CreateBluwub($bluwubsToCreate);
     }
 
@@ -217,7 +236,7 @@
         $maxHealth = 500;
 
         include "dbConfig.php";
-        echo "bolbss: ".$bluwbs;
+        //echo "bolbss: ".$bluwbs;
         // Create Blobs
         if($createBlobsWithBluwubs) { CreateBlob($bluwbs); }
 
@@ -271,7 +290,7 @@
             $query = "INSERT INTO `parts`( `type`, `name`, `damage`, `defense`, `regen`,`attackSpeed`, `image`)
             VALUES ('blob', 'blob', '".$damage."', '".$defense."', '".$regen."', '".$attackSpeed."', '".$color."')";
             $mysqli->query($query);
-            echo $query;
+            //echo $query;
 
         }
     }

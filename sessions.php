@@ -53,7 +53,7 @@
                                             $_SESSION["uwuserID"] = $id;
                                             $_SESSION["bluwubs"] = [new Bluwub($bluwub1), new Bluwub($bluwub2),new Bluwub($bluwub3)];
 
-                                            header("Location: myBluwubs.php");
+                                            header("Location: myBluwubs.php?sessionType=debugSession");
                                         }
                                         else
                                         {
@@ -106,6 +106,20 @@
             case "logout":
                 DestorySession();
                 header("Location: index.php");
+            break;
+            case "refreshSession":
+                include_once "bluwubs.php";
+                foreach ($_SESSION as $key=>$val)
+                {
+                    //echo $key;
+                    if($key == "bluwubs")
+                    {
+                        foreach ($val as $index)
+                        {
+                            $index->SetToID($index->id);
+                        }
+                    }
+                }
             break;
             case "debugSession":
             foreach ($_SESSION as $key=>$val)
