@@ -10,8 +10,8 @@
 </head>
 <body>
     <?php
-    include_once "bluwubs.php";
-    include "sessions.php"
+        include_once "bluwubs.php";
+        include "sessions.php"
     ?>
 
     <?php 
@@ -20,6 +20,7 @@
 
         for($i=0; $i < 3; $i++)
         {
+            global $bluwubCount;
             if($_SESSION["bluwubs"][$i]->id == null)
             {
                 
@@ -30,34 +31,40 @@
             }
         }
 
+        $html = '  <div class = "OverallContainer">
+                    <div class = "myBlobsContainer">
+                    <h2>My Blobs</h2>';
+
         for($j = 0; $j < $bluwubCount; $j++)
         {
-            if($bluwubCount>0)
+            global $bluwubCount;
+            global $html;
+            if($bluwubCount > 0)
             {
                 $bluwubCount--;
-            $blub = $_SESSION["bluwubs"][$j];
+                $blub = $_SESSION["bluwubs"][$j];
 
-            echo '  <div id = "blub" class= "blubSmallContainer">
-                        <div class = "blubSmallImageContainer">
-                            <canvas id="blubCanvas1" class= "blubSmallCanvas" width="200" height="200"></canvas>
-                        </div>
-                        <div class = "blubSmallStatsContainer">
-                            <strong>Health:</strong> '."".floor($blub->GetHealthPercent() * 100)."".'
-                            </br>
-                            <strong>Regen Speed (per second):</strong> '."".$blub->GetRegen()."".'
-                            </br>
-                            <strong>Attack Speed (per second):</strong> '."".$blub->GetAttackSpeed()."".'
-                            </br>
-                            <strong>Damage:</strong> '."".$blub->GetDamage()."".'
-                            </br>
-                            <strong>Defense:</strong> '."".$blub->GetDefense()."".'
-                            </br>
-                        </div>
-                    </div>';
+                $html.=' <div id = "blub" class= "blubSmallContainer">
+                           <div class = "blubSmallImageContainer">
+                               <canvas id="blubCanvas1" class= "blubSmallCanvas" width="200" height="200"></canvas>
+                           </div>
+                           <div class = "blubSmallStatsContainer">
+                               <strong>Health:</strong> '."".floor($blub->GetHealthPercent() * 100)."".'
+                               </br>
+                               <strong>Regen Speed (per second):</strong> '."".$blub->GetRegen()."".'
+                               </br>
+                               <strong>Attack Speed (per second):</strong> '."".$blub->GetAttackSpeed()."".'
+                               </br>
+                               <strong>Damage:</strong> '."".$blub->GetDamage()."".'
+                               </br>
+                               <strong>Defense:</strong> '."".$blub->GetDefense()."".'
+                               </br>
+                           </div>
+                       </div>';
             }
             else
             {
-                echo '  <div id = "blub" class= "blubSmallContainer">
+                $html.=' <div id = "blub" class= "blubSmallContainer">
                             <div class = "blubSmallImageContainer">
                                 <canvas id="blubCanvas1" class= "blubSmallCanvas" width="200" height="200"></canvas>
                             </div>
@@ -66,34 +73,35 @@
                             </div>
                         </div>';
             }
-        }        
+        }
 
+        $html.='     </div>
+
+                    <div class = "selectedBlobContainer">
+                        <h2>Selected Blob</h2>
+                        <div class= "blubBigContainer">
+                            <div class = "blubBigImageContainer">
+                                <canvas class="blubBigCanvas" width="200" height="200"></canvas>
+                            </div>
+                            <div class = "blubBigStatsContainer">
+                                <p id="selectedBlubHealth"><strong>Health:</strong>blobHealth</p>
+                                </br>
+                                <p id="selectedBlubHealthRegen"><strong>Health Regen (per second):</strong>Health Regen</p>
+                                </br>
+                                <p id="selectedBlubAttackSpeed"><strong>Attack Speed (per second):</strong>Attack Speed</p>
+                                </br>
+                                <p id="selectedBlubDamage"><strong>Damage:</strong>Damage</p>
+                                </br>
+                                <p id="selectedBlubDefense"><strong>Defense:</strong>Defense</p>
+                                </br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        ';
+                
+        echo $html;
     ?>
-
-<div class = "OverallContainer">
-    <div class = "myBlobsContainer">
-        <h2>My Blobs</h2>
-
-
-    </div>
-
-    <div class = "selectedBlobContainer">
-        <h2>Selected Blob</h2>
-        <div class= "blubBigContainer">
-            <div class = "blubBigImageContainer">
-                <canvas class="blubBigCanvas" width="200" height="200"></canvas>
-            </div>
-            <div class = "blubBigStatsContainer">
-                <strong>Health:</strong> blobHealth
-                </br>
-                <strong>Attack:</strong> blobAttack
-                </br>
-                <strong>Defense:</strong> blobDefense
-                </br>
-            </div>
-        </div>
-    </div>
-</div>
 
 </body>
 </html>
