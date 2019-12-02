@@ -137,6 +137,7 @@
                     $this->name = $name;
                     $this->image = $image;
                     $this->damage = $damage;
+                    $this->defense = $defense;
                     $this->regen = $regen;
                     $this->attackSpeed = $attackSpeed;
                 }

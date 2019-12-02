@@ -36,10 +36,8 @@
                     <div class = "myBlobsContainer">
                     <h2>My Blobs</h2>';
 
-        for($j = 0; $j < $bluwubCount; $j++)
+        for($j = 0; $j < 3; $j++)
         {
-            global $bluwubCount;
-            global $html;
             if($bluwubCount > 0)
             {
                 $bluwubCount--;

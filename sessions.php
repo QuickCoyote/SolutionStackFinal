@@ -4,14 +4,14 @@
     $sessionType = filter_input(INPUT_GET, "sessionType",FILTER_SANITIZE_STRING);
     session_start();
 
-    echo "<p>".$_SERVER['SCRIPT_NAME']."</p>";
+    //echo "<p>".$_SERVER['SCRIPT_NAME']."</p>";
     if(!isset($_SESSION['uwuserID']) && 
     !($_SERVER['SCRIPT_NAME'] == "/SolutionStackFinal/index.php" || $_SERVER['SCRIPT_NAME'] == "/SolutionStackFinal/sessions.php"))
     {
         echo "no sesh";
         header("Location: index.php");
     }
-    
+
     //echo $_SESSION['uwuserID'];
     //echo "Session Type: ".$sessionType;
 
@@ -106,6 +106,23 @@
             case "logout":
                 DestorySession();
                 header("Location: index.php");
+            break;
+            case "debugSession":
+            foreach ($_SESSION as $key=>$val)
+            {
+                if(is_array($val))
+                {
+                    echo $key.":<br/>";
+                    foreach ($val as $index)
+                    {
+                        echo $index->id."<br/>";
+                    }
+                }
+                else
+                {
+                echo $key." ".$val."<br/>";
+                }
+            }
             break;
         }
     }
