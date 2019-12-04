@@ -123,7 +123,7 @@
             $attackSpeed += $this->part1->attackSpeed / 10;
             $attackSpeed += $this->part2->attackSpeed / 10;
             $attackSpeed = 5 - $attackSpeed;
-            if($attackSpeed < .5) { $attackSpeed = .01; }
+            if($attackSpeed < .5) { $attackSpeed = .05; }
             return $attackSpeed;
         }
     }
@@ -324,17 +324,17 @@
     {
         include "dbConfig.php";
 
-        $minPartDamage = 10;
+        $minPartDamage = -10;
         $maxPartDamage = 100;
 
-        $minPartDefence = 1;
+        $minPartDefence = -10;
         $maxPartDefence = 100;
 
         // regen per second
         $minPartRegen = 0;
         $maxPartRegen = 10;
 
-        $minPartAttackSpeed = 5; // == .5 hits every .5 seconds
+        $minPartAttackSpeed = -5; // == .5 hits every .5 seconds
         $maxPartAttackSpeed = 20; // == 2 hits every 2 seconds
 
         $damagebit = new PartType();
@@ -370,19 +370,39 @@
             switch($bit->type)
             {
                 case "damage":
+                    if($damage < 0) $damage *= -1;
                     $damage = $damage * 2;
+                    if($damage > 140)
+                    {
+                        $attackSpeed = $attackSpeed * -1;
+                    }
                     $attackSpeed = $attackSpeed / 2;
                 break;
                 case "defense":
+                    if($defense < 0) $defense *= -1;
                     $defense = $defense * 2;
+                    if($defense > 140)
+                    {
+                        $regen = $regen * -1;
+                    }
                     $regen = $regen / 2;
                 break;
                 case "regen":
+                    if($regen < 0) $regen *= -1;
                     $regen = $regen * 2;
+                    if($regen > 30)
+                    {
+                        $defense = $defense * -1;
+                    }
                     $defense = $defense / 2;
                 break;
                 case "attackSpeed":
+                    if($attackSpeed < 0) $attackSpeed *= -1;
                     $attackSpeed = $attackSpeed * 2;
+                    if($attackSpeed > 30)
+                    {
+                        $damage = $damage * -1;
+                    }
                     $damage = $damage / 2;
                 break;
             }
