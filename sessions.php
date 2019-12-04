@@ -115,9 +115,8 @@
                     {
                         foreach ($val as $index)
                         {
-                            echo "blobid: ".$index->id;
 
-                            //$index->SetToID($index->id);
+                            $index->SetToID($index->id);
                         }
                     }
                 }

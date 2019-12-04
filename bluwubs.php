@@ -59,6 +59,22 @@
             $this->UpdateToDatabase();
         }
 
+        public function MakeMeJavaScriptBitch($index)
+        {
+            $javabloba = "blob".$index;
+            echo "
+                ".$javabloba."ID = ".$this->id.";
+                ".$javabloba."Color = '".$this->blob->image."';
+                ".$javabloba."CurrentHealth = ".$this->currentHealth.";
+                ".$javabloba."MaxHealth = ".$this->maxHealth.";
+                ".$javabloba."Damage = ".$this->GetDamage().";
+                ".$javabloba."Defense = ".$this->GetDefense().";
+                ".$javabloba."AttackSpeed = ".$this->GetAttackSpeed().";
+                ".$javabloba."Part1Image = '".$this->part1->image."';
+                ".$javabloba."Part2Image = '".$this->part2->image."';
+            ";
+        }
+
         public function UpdateToDatabase()
         {
             include "dbConfig.php";
@@ -185,6 +201,7 @@
         include "dbConfig.php";
 
         $query = "SELECT * FROM bluwubs where `ownerID` != $myID ORDER BY RAND() LIMIT 1";
+        echo $query;
         $sqlResult = $mysqli->query($query);
         $num_results = $sqlResult->num_rows;
         if($num_results > 0)
