@@ -1,12 +1,12 @@
 <?php
 
-
+    include_once "bluwubs.php";
     $sessionType = filter_input(INPUT_GET, "sessionType",FILTER_SANITIZE_STRING);
     session_start();
 
     //echo "<p>".$_SERVER['SCRIPT_NAME']."</p>";
     if(!isset($_SESSION['uwuserID']) && 
-    !($_SERVER['SCRIPT_NAME'] == "/SolutionStackFinal/index.php" || $_SERVER['SCRIPT_NAME'] == "/SolutionStackFinal/sessions.php"))
+    !($_SERVER['SCRIPT_NAME'] == "/index.php" || $_SERVER['SCRIPT_NAME'] == "/sessions.php"))
     {
         echo "no sesh";
         header("Location: index.php");
@@ -111,12 +111,13 @@
                 include_once "bluwubs.php";
                 foreach ($_SESSION as $key=>$val)
                 {
-                    //echo $key;
                     if($key == "bluwubs")
                     {
                         foreach ($val as $index)
                         {
-                            $index->SetToID($index->id);
+                            echo "blobid: ".$index->id;
+
+                            //$index->SetToID($index->id);
                         }
                     }
                 }

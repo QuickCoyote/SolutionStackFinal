@@ -11,7 +11,7 @@
 
         public function SetToID($index)
         {
-            if(is_null($index)) return;
+            if(is_null($index) || $index == "") return;
 
             include "dbConfig.php";
 
@@ -238,10 +238,11 @@
         include "dbConfig.php";
         //echo "bolbss: ".$bluwbs;
         // Create Blobs
-        if($createBlobsWithBluwubs) { CreateBlob($bluwbs); }
 
         for($i = 0; $i < $bluwbs; $i++)
         {
+            if($createBlobsWithBluwubs) { CreateBlob($bluwbs); }
+
             $health = rand($minHealth, $maxHealth);
             $time = date_create('now')->format('Y-m-d H:i:s');
             $blob = GetRandomBlob();
@@ -249,6 +250,7 @@
             $query = "INSERT INTO `bluwubs`( `maxHealth`, `currentHealth`, `healthUpdateTime`, `blob`)
                     VALUES ('".$health."', '".$health."', '".$time."', '".$blob."')";
             $mysqli->query($query);
+            //echo $query;
 
         }
         
