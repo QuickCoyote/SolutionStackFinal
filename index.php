@@ -11,7 +11,7 @@
     <div class="container">
         <div class="childcontainer">
             <h2>Login</h2>
-            <form action="sessions">
+            <form action="sessions.php">
 
                 <input type="hidden" name="sessionType" value="login">
 

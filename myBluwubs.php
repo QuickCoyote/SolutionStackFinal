@@ -13,8 +13,8 @@
         include_once "bluwubs.php";
         include "sessions.php"
     ?>
-    <a href="sessions?sessionType=logout">logout</a>
-    <a href="battle?sessionType=refreshSession">battle</a>
+    <a href="sessions.php?sessionType=logout">logout</a>
+    <a href="battle.php?sessionType=refreshSession">battle</a>
 
     <?php 
 

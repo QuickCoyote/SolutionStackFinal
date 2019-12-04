@@ -11,7 +11,7 @@
 
         public function SetToID($index)
         {
-            if(is_null($index)) return;
+            if(is_null($index) || $index == "") return;
 
             include "dbConfig.php";
 
@@ -57,6 +57,22 @@
                 $this->currentHealth = $this->maxHealth;
             }
             $this->UpdateToDatabase();
+        }
+
+        public function MakeMeJavaScriptBitch($index)
+        {
+            $javabloba = "blob".$index;
+            echo "
+                ".$javabloba."ID = ".$this->id.";
+                ".$javabloba."Color = '".$this->blob->image."';
+                ".$javabloba."CurrentHealth = ".$this->currentHealth.";
+                ".$javabloba."MaxHealth = ".$this->maxHealth.";
+                ".$javabloba."Damage = ".$this->GetDamage().";
+                ".$javabloba."Defense = ".$this->GetDefense().";
+                ".$javabloba."AttackSpeed = ".$this->GetAttackSpeed().";
+                ".$javabloba."Part1Image = '".$this->part1->image."';
+                ".$javabloba."Part2Image = '".$this->part2->image."';
+            ";
         }
 
         public function UpdateToDatabase()
@@ -107,7 +123,7 @@
             $attackSpeed += $this->part1->attackSpeed / 10;
             $attackSpeed += $this->part2->attackSpeed / 10;
             $attackSpeed = 5 - $attackSpeed;
-            if($attackSpeed < .5) { $attackSpeed = .01; }
+            if($attackSpeed < .5) { $attackSpeed = .05; }
             return $attackSpeed;
         }
     }
@@ -185,6 +201,7 @@
         include "dbConfig.php";
 
         $query = "SELECT * FROM bluwubs where `ownerID` != $myID ORDER BY RAND() LIMIT 1";
+        echo $query;
         $sqlResult = $mysqli->query($query);
         $num_results = $sqlResult->num_rows;
         if($num_results > 0)
@@ -238,10 +255,11 @@
         include "dbConfig.php";
         //echo "bolbss: ".$bluwbs;
         // Create Blobs
-        if($createBlobsWithBluwubs) { CreateBlob($bluwbs); }
 
         for($i = 0; $i < $bluwbs; $i++)
         {
+            if($createBlobsWithBluwubs) { CreateBlob($bluwbs); }
+
             $health = rand($minHealth, $maxHealth);
             $time = date_create('now')->format('Y-m-d H:i:s');
             $blob = GetRandomBlob();
@@ -249,6 +267,7 @@
             $query = "INSERT INTO `bluwubs`( `maxHealth`, `currentHealth`, `healthUpdateTime`, `blob`)
                     VALUES ('".$health."', '".$health."', '".$time."', '".$blob."')";
             $mysqli->query($query);
+            //echo $query;
 
         }
         
@@ -305,17 +324,17 @@
     {
         include "dbConfig.php";
 
-        $minPartDamage = 10;
+        $minPartDamage = -10;
         $maxPartDamage = 100;
 
-        $minPartDefence = 1;
+        $minPartDefence = -10;
         $maxPartDefence = 100;
 
         // regen per second
         $minPartRegen = 0;
         $maxPartRegen = 10;
 
-        $minPartAttackSpeed = 5; // == .5 hits every .5 seconds
+        $minPartAttackSpeed = -5; // == .5 hits every .5 seconds
         $maxPartAttackSpeed = 20; // == 2 hits every 2 seconds
 
         $damagebit = new PartType();
@@ -351,19 +370,39 @@
             switch($bit->type)
             {
                 case "damage":
+                    if($damage < 0) $damage *= -1;
                     $damage = $damage * 2;
+                    if($damage > 140)
+                    {
+                        $attackSpeed = $attackSpeed * -1;
+                    }
                     $attackSpeed = $attackSpeed / 2;
                 break;
                 case "defense":
+                    if($defense < 0) $defense *= -1;
                     $defense = $defense * 2;
+                    if($defense > 140)
+                    {
+                        $regen = $regen * -1;
+                    }
                     $regen = $regen / 2;
                 break;
                 case "regen":
+                    if($regen < 0) $regen *= -1;
                     $regen = $regen * 2;
+                    if($regen > 30)
+                    {
+                        $defense = $defense * -1;
+                    }
                     $defense = $defense / 2;
                 break;
                 case "attackSpeed":
+                    if($attackSpeed < 0) $attackSpeed *= -1;
                     $attackSpeed = $attackSpeed * 2;
+                    if($attackSpeed > 30)
+                    {
+                        $damage = $damage * -1;
+                    }
                     $damage = $damage / 2;
                 break;
             }
