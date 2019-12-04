@@ -43,17 +43,15 @@
                 }
             }
 
-            
-
-            if($rng == 0)
-            {
-                if($bluwubCount == 3) 
-                {
-                   // echo "Well this sucks, you would have won a new Bluwub but you already have 3";
-                }
-                $objectRecived = GetRandomBlob();
-                //echo "Neet you get a rad new bluwub, and look they are ".$objectRecived->blob->image.", your fav color ever";
-            }
+            // if($rng == 0)
+            // {
+            //     if($bluwubCount == 3) 
+            //     {
+            //        // echo "Well this sucks, you would have won a new Bluwub but you already have 3";
+            //     }
+            //     $objectRecived = GetRandomBlob();
+            //     //echo "Neet you get a rad new bluwub, and look they are ".$objectRecived->blob->image.", your fav color ever";
+            // }
             // else
             // if($rng == 1)
             // {
